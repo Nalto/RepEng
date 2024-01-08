@@ -1,0 +1,21 @@
+--- user.old.ts	2024-01-08 18:36:03.681842165 +0100
++++ user.ts	2024-01-08 18:34:07.978124907 +0100
+@@ -2,6 +2,9 @@
+ import User from '../../models/user/user';
+ import PasswordHelper from '../../helpers/passwordHelper';
+ import BaseController from '../base';
++import { InferSchemaType } from 'mongoose';
++
++type UserType = InferSchemaType<typeof User['prototype']>;
+ 
+ export default class UserController extends BaseController {
+   
+@@ -10,7 +13,7 @@
+   login = (email: String, password: String): Promise<any> => {
+     return new Promise((resolv, reject) => {
+       this.model.findOne({'email': email})
+-        .then(user => {
++        .then((user: UserType | null) => {
+           if (!user) return reject({'message': 'Não foi possível encontrar sua conta.', 'code': 404});
+           return user.comparePassword(password)
+             .then(isMatch => {

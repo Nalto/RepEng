@@ -1,0 +1,10 @@
+--- main.d.old.ts	2024-01-08 17:24:33.440807011 +0100
++++ main.d.ts	2024-01-08 17:23:32.304077184 +0100
+@@ -1,6 +1,6 @@
+ // TypeScript Version: 3.0
+ /// <reference types="node" />
+-import type { URL } from 'node:url';
++import type { URL } from 'url';
+ 
+ export interface DotenvParseOutput {
+   [name: string]: string;

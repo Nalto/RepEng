@@ -1,0 +1,28 @@
+--- rawSchemaBatch.old.ts	2024-01-08 17:50:06.831011804 +0100
++++ rawSchemaBatch.ts	2024-01-08 17:48:10.566279278 +0100
+@@ -9,6 +9,7 @@
+ import RawSchemaUnionController from './rawSchemaUnion';
+ import JsonSchemaExtractedController from '../jsonSchema/jsonSchemaExtracted';
+ import AlertController from '../alert/alert';
++import { Types } from 'mongoose';
+ 
+ export default class RawSchemaBatchController extends BaseController {
+ 
+@@ -21,7 +22,7 @@
+       const rawSchemaBatch = new this.model();
+       rawSchemaBatch.collectionName = databaseParam.collectionName;
+       rawSchemaBatch.dbUri = databaseParam.getURIWithoutAuthentication();
+-      rawSchemaBatch.userId = databaseParam.userId;
++      rawSchemaBatch.userId = new Types.ObjectId(databaseParam.userId);
+       rawSchemaBatch.startDate = new Date();
+       rawSchemaBatch.status = 'CONNECT_DATABASE';
+       rawSchemaBatch.rawSchemaFormat = databaseParam.rawSchemaFormat;
+@@ -97,7 +98,7 @@
+       const rawSchemaBatch = new this.model();
+       rawSchemaBatch.collectionName = databaseParam.collectionName;
+       rawSchemaBatch.dbUri = databaseParam.getURIWithoutAuthentication();
+-      rawSchemaBatch.userId = databaseParam.userId;
++      rawSchemaBatch.userId = new Types.ObjectId(databaseParam.userId);
+       rawSchemaBatch.startDate = new Date();
+ 
+       this.connect(databaseParam).then((data) => {
