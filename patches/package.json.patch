@@ -1,5 +1,14 @@
 --- package.old.json	2024-01-08 00:15:21.196362616 +0100
-+++ package.json	2024-01-08 00:14:24.891372723 +0100
++++ package_new.json	2024-02-26 15:30:16.287464739 +0100
+@@ -16,7 +16,7 @@
+     "backend": "concurrently \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
+     "frontend": "ng serve --open",
+     "dev": "concurrently \"mongod\" \"ng serve --open\" \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
+-    "prod": "concurrently \"ng build -aot -prod && tsc -p server && node dist/server/app.js\""
++    "prod": "concurrently \"ng build --prod && tsc -p server && node dist/server/app.js\""
+   },
+   "private": true,
+   "dependencies": {
 @@ -33,6 +33,7 @@
      "@angular/platform-browser-dynamic": "^13.3.3",
      "@angular/router": "^13.3.3",

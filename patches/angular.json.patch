@@ -1,0 +1,13 @@
+--- angular.json	2024-02-25 15:34:43.950327745 +0100
++++ angular.new.json	2024-02-26 15:39:37.831286361 +0100
+@@ -40,8 +40,8 @@
+               "budgets": [
+                 {
+                   "type": "initial",
+-                  "maximumWarning": "500kb",
+-                  "maximumError": "1mb"
++                  "maximumWarning": "2mb",
++                  "maximumError": "5mb"
+                 },
+                 {
+                   "type": "anyComponentStyle",

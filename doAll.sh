@@ -41,3 +41,10 @@ while ! check_server; do
   continue
 done
 
+# Run experiments
+
+# Copy results to report directory
+
+# Create the report
+cd ../RepEngReport/
+make report

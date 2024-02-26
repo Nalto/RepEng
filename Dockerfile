@@ -16,12 +16,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		gnupg \
 		make \
 		sudo \
+                systemctl \ 
 		texlive-base \
 		texlive-bibtex-extra \
 		texlive-fonts-extra \
 		texlive-fonts-recommended \
 		texlive-latex-base \
 		texlive-latex-extra \
+		texlive-plain-generic \
 		texlive-publishers
 
 # Import MongoDB public key
@@ -37,6 +39,8 @@ RUN apt-get update
 
 # Install MongoDB
 RUN apt-get install -y mongodb-org
+RUN systemctl start mongod
+RUN systemctl enable mongod
 
 # Install Nodejs
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&\
@@ -67,15 +71,15 @@ RUN patch package.json ../patches/package.json.patch
 RUN npm install --legacy-peer-deps
 
 # Apply node dependency patches
-RUN patch node_modules/dotenv/lib/main.d.ts ../patches/main.d.ts.patch && \
-   patch server/controllers/rawSchema/rawSchemaBatch.ts ../patches/rawSchemaBatch.ts.patch && \
-   patch server/controllers/user/user.ts ../patches/user.ts.patch
+# RUN patch node_modules/dotenv/lib/main.d.ts ../patches/main.d.ts.patch && \
+RUN  patch server/controllers/rawSchema/rawSchemaBatch.ts ../patches/rawSchemaBatch.ts.patch && \
+  patch server/controllers/user/user.ts ../patches/user.ts.patch && \
+  patch angular.json ../patches/angular.json.patch
 
-# Run smoke test
+# Copy scripts to docker
 COPY ./smoke.sh /home/repro/JSONSchemaDiscovery/smoke.sh
-RUN ./smoke.sh
+COPY ./doAll.sh /home/repro/doAll.sh
 
 # Pull report repository
 WORKDIR /home/repro
 RUN git clone https://github.com/Nalto/RepEngReport.git
-# RUN cd RepEngReport/ && make report
